@@ -1,17 +1,26 @@
 import java.util.Scanner;
 
-public class Calc {
+class Calc {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Калькулятор принимает число от 1 до 10. Введите выражение (например, 1 + 2): ");
-        String expression = scanner.nextLine();
+        String input = scanner.nextLine();
 
+        try {
+            System.out.println(calc(input));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
 
-        if (!expression.matches("\\d+ [\\+\\-\\*/] \\d+")) {
+    public static String calc(String input) {
+        if (!input.matches("\\d+ [\\+\\-\\*/] \\d+")) {
             throw new IllegalArgumentException("Ошибка: Некорректный формат выражения. Используйте формат: a + b");
         }
 
-        String[] parts = expression.split(" ");
+        String[] parts = input.split(" ");
         int a = Integer.parseInt(parts[0]);
         char operator = parts[1].charAt(0);
         int b = Integer.parseInt(parts[2]);
@@ -20,18 +29,23 @@ public class Calc {
             throw new IllegalArgumentException("Ошибка: Числа должны быть от 1 до 10 включительно");
         }
 
-        int result;
-        if (operator == '+') {
-            result = a + b;
-        } else if (operator == '-') {
-            result = a - b;
-        } else if (operator == '*') {
-            result = a * b;
-        } else {
-            result = a / b;
+        int result = 0; // Инициализация переменной
+
+        switch (operator) {
+            case '+':
+                result = a + b;
+                break;
+            case '-':
+                result = a - b;
+                break;
+            case '*':
+                result = a * b;
+                break;
+            case '/':
+                result = a / b;
+                break;
         }
 
-        System.out.println(result);
-        scanner.close();
+        return String.valueOf(result);
     }
 }
