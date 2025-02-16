@@ -29,7 +29,7 @@ class Calc {
             throw new IllegalArgumentException("Ошибка: Числа должны быть от 1 до 10 включительно");
         }
 
-        int result = 0; // Инициализация переменной
+        int result = 0; 
 
         switch (operator) {
             case '+':
